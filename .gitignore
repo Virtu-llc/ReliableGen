@@ -1,0 +1,5 @@
+.idea
+requirements.txt
+.DS_Store
+__pycache
+.pyc
