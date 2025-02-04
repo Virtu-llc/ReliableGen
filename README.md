@@ -5,7 +5,7 @@ build your ai agent in 5 minutes.
 ## Architecture 
 ![architecture](https://github.com/user-attachments/assets/0da1ce78-6318-4aac-af4e-6bad04dae72c)
 
-## How to create yout own agent in 5 minutes:
+## How to create your own agent in 5 minutes:
 1. Define tools
 2. Init an Agent with tools
 3. Call agent with a prompt
