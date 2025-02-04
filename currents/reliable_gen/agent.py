@@ -3,7 +3,6 @@ import logging
 from currents.reliable_gen.config.config import Config
 from currents.reliable_gen.llm.deepseek import DeepSeek
 from currents.reliable_gen.llm.gpt_4o import Gpt4o
-from currents.reliable_gen.event.event import EventGroup
 
 
 class ReliableAgent:
@@ -26,11 +25,21 @@ class ReliableAgent:
             logging.error(error)
             raise Exception(error)
 
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, tools, tool_map):
         self.config = config
         self._validate()
         self._init_llm()
+        self.tools = tools
+        self.tool_map = tool_map
 
-    def register_events(self, event_groups: list[EventGroup]):
-        pass
+
+    def run(self, prompt):
+        messages = [
+            {"role": "user", "content": prompt}
+        ]
+        if self.tools:
+            response = self.llm_client.chat_with_tools(messages, self.tools, self.tool_map)
+        else:
+            response = self.llm_client.chat(messages)
+        return response
 

@@ -1,4 +1,6 @@
 import json
+import logging
+
 from openai import OpenAI
 
 
@@ -20,3 +22,8 @@ class DeepSeek:
             )
         content = response.choices[0].message.content
         return json.loads(content) if json_format else content
+
+    def chat_with_tools(self, messages, tools):
+        error = 'deepseek does not support chat with tools yet, please use other models'
+        logging.error(error)
+        raise Exception(error)
