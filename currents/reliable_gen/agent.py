@@ -3,6 +3,7 @@ import logging
 from currents.reliable_gen.config.config import Config
 from currents.reliable_gen.llm.deepseek import DeepSeek
 from currents.reliable_gen.llm.gpt_4o import Gpt4o
+from currents.reliable_gen.llm.o3_mini import O3Mini
 
 
 class ReliableAgent:
@@ -20,6 +21,8 @@ class ReliableAgent:
             self.llm_client = DeepSeek(self.config.llm_key)
         elif self.config.model == 'gpt-4o':
             self.llm_client = Gpt4o(self.config.llm_key)
+        elif self.config.model == 'o3-mini':
+            self.llm_client = O3Mini(self.config.llm_key)
         else:
             error = 'unknown llm model'
             logging.error(error)
