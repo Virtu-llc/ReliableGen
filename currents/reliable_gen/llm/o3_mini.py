@@ -25,15 +25,12 @@ class O3Mini:
         return json.loads(content) if json_format else content
 
     def chat_with_tools(self, messages: list, tools, tool_map):
-        first_call = True
         while True:
             response = self.client.chat.completions.create(
                 model='o3-mini',
                 messages=messages,
                 tools=tools,
-                tool_choice="required" if first_call else "auto",
             )
-            first_call = False
             tool_calls = response.choices[0].message.tool_calls
             if tool_calls:
                 tool_messages = []
