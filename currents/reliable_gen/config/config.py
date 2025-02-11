@@ -9,5 +9,6 @@ class Config:
         self.tool_map = kwargs.get('tool_map', None)
         self.log_callback = kwargs.get('log_callback', None)
         self.complete_callback = kwargs.get('complete_callback', None)
+        self.exception_callback = kwargs.get('exception_callback', None)
 
 

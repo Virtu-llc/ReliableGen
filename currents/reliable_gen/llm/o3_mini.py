@@ -11,6 +11,7 @@ class O3Mini:
                  tool_map=None,
                  log_callback:callable=None,
                  complete_callback:callable=None,
+                 exception_callback:callable=None,
                  interactive=False):
         self.client = OpenAI(api_key=key)
         self.tools = tools
@@ -19,6 +20,7 @@ class O3Mini:
         self.logs = []
         self.log_callback = log_callback
         self.complete_callback = complete_callback
+        self.exception_callback = exception_callback
 
     def chat(self, messages, json_format=True):
         if json_format:
@@ -90,6 +92,8 @@ class O3Mini:
                         messages.append({"role": "user", "content": "Please continue to the next step."})
         except Exception as e:
             msg = f'o3-mini error: {sys.exc_info()[0]}, {e}'
+            if self.exception_callback:
+                self.exception_callback(msg)
             logging.error(msg)
             self.log(msg)
 

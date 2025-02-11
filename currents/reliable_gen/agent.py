@@ -20,11 +20,20 @@ class ReliableAgent:
         if not self.config.use_llm:
             self.llm_client = None
         elif self.config.model == 'o1':
-            self.llm_client = O1(self.config.llm_key, tools=self.config.tools, tool_map=self.config.tool_map,
-                                 complete_callback=self.config.complete_callback, log_callback=self.config.log_callback)
+            self.llm_client = O1(self.config.llm_key,
+                                 tools=self.config.tools,
+                                 tool_map=self.config.tool_map,
+                                 complete_callback=self.config.complete_callback,
+                                 log_callback=self.config.log_callback,
+                                 exception_callback=self.config.exception_callback)
+
         elif self.config.model == 'o3-mini':
-            self.llm_client = O3Mini(self.config.llm_key, tools=self.config.tools, tool_map=self.config.tool_map,
-                                 complete_callback=self.config.complete_callback, log_callback=self.config.log_callback)
+            self.llm_client = O3Mini(self.config.llm_key,
+                                     tools=self.config.tools,
+                                     tool_map=self.config.tool_map,
+                                     complete_callback=self.config.complete_callback,
+                                     log_callback=self.config.log_callback,
+                                     exception_callback=self.config.exception_callback)
         else:
             error = 'unknown llm model'
             logging.error(error)

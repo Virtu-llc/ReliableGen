@@ -10,6 +10,7 @@ class O1:
                  tool_map=None,
                  log_callback:callable=None,
                  complete_callback:callable=None,
+                 exception_callback:callable=None,
                  interactive=False):
         self.client = OpenAI(api_key=key)
         self.tools = tools
@@ -18,6 +19,7 @@ class O1:
         self.logs = []
         self.log_callback = log_callback
         self.complete_callback = complete_callback
+        self.exception_callback = exception_callback
 
     def chat(self, messages, json_format=True):
         if json_format:
@@ -90,6 +92,8 @@ class O1:
         except Exception as e:
             msg = f'o1 error: {sys.exc_info()[0]}, {e}'
             logging.error(msg)
+            if self.exception_callback:
+                self.exception_callback(msg)
             self.log(msg)
 
     def log(self, msg):
