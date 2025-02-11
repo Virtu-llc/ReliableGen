@@ -1,8 +1,10 @@
 from currents.reliable_gen.tools.impl import google_search, reddit_search, sort
+from currents.reliable_gen.tools.impl import complete_task
 
 TOOL_GOOGLE_SEARCH = 'google_search'
 TOOL_REDDIT_SEARCH = 'reddit_search'
 TOOL_SORT = 'sort'
+COMPLETE_TASK = 'complete_task'
 
 TOOLS = [
     {
@@ -62,6 +64,25 @@ TOOLS = [
             },
             'strict': True
         }
+    },
+    {
+        'type': 'function',
+        'function': {
+            'name': COMPLETE_TASK,
+            'description': 'complete task, this should always be the last step.',
+            'parameters': {
+                'type': 'object',
+                'properties': {
+                    'task_output': {
+                        'type': 'string',
+                        'description': 'final task execution result',
+                    }
+                },
+                'required': ['task_output'],
+                'additionalProperties': False
+            },
+            'strict': True
+        }
     }
 ]
 
@@ -69,4 +90,5 @@ TOOL_MAP = {
     TOOL_REDDIT_SEARCH: reddit_search,
     TOOL_GOOGLE_SEARCH: google_search,
     TOOL_SORT: sort,
+    COMPLETE_TASK: complete_task
 }

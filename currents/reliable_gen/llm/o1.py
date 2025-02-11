@@ -1,12 +1,11 @@
 import logging
 import sys
-
 from openai import OpenAI
 from datetime import datetime
 import json
 
 
-class O3Mini:
+class O1:
     def __init__(self, key, tools=None,
                  tool_map=None,
                  log_callback:callable=None,
@@ -23,13 +22,13 @@ class O3Mini:
     def chat(self, messages, json_format=True):
         if json_format:
             response = self.client.chat.completions.create(
-                model='o3-mini',
+                model='o1',
                 messages=messages,
                 response_format={"type": "json_object"}
             )
         else:
             response = self.client.chat.completions.create(
-                model='o3-mini',
+                model='o1',
                 messages=messages,
             )
         content = response.choices[0].message.content
@@ -41,7 +40,7 @@ class O3Mini:
         try:
             while True:
                 response = self.client.chat.completions.create(
-                    model='o3-mini',
+                    model='o1',
                     messages=messages,
                     tools=self.tools
                 )
@@ -89,7 +88,7 @@ class O3Mini:
                     else:
                         messages.append({"role": "user", "content": "Please continue to the next step."})
         except Exception as e:
-            msg = f'o3-mini error: {sys.exc_info()[0]}, {e}'
+            msg = f'o1 error: {sys.exc_info()[0]}, {e}'
             logging.error(msg)
             self.log(msg)
 

@@ -1,3 +1,4 @@
+import json
 
 
 def google_search(keyword):
@@ -11,3 +12,7 @@ def reddit_search(query):
 def sort(competitors):
     competitors.reverse()
     return competitors
+
+
+def complete_task(task_output):
+    return {'task_output': task_output}
