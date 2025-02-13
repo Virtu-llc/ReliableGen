@@ -66,7 +66,7 @@ class O1:
                             function = self.tool_map[function_name]
                             args = json.loads(tool_call.function.arguments)
                             result = function(**args)
-                            self.log(f'Tool call {function_name}: result: {json.dumps(result)}')
+                            self.log(f'Step result: {json.dumps(result)}')
                             if function_name == 'complete_task':
                                 msg = f'Agent task completed'
                                 self.log(msg)
@@ -88,7 +88,7 @@ class O1:
                         messages.append(response.choices[0].message)
                         messages.extend(tool_messages)
                     else:
-                        messages.append({"role": "user", "content": "Please continue to the next step."})
+                        messages.append({"role": "user", "content": "Please continue."})
         except Exception as e:
             msg = f'o1 error: {sys.exc_info()[0]}, {e}'
             logging.error(msg)
@@ -97,7 +97,5 @@ class O1:
             self.log(msg)
 
     def log(self, msg):
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        log = f'\n{timestamp} {msg}'
         if self.log_callback:
-            self.log_callback(log)
+            self.log_callback(msg)
